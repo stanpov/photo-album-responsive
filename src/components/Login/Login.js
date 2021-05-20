@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {auth} from '../../firebase/firebase'
-import {login} from '../../features/auth/userSlice';
+import {LogIn} from '../../features/actions'
 import {useDispatch} from 'react-redux';
 import {makeStyles,Avatar,Typography,TextField,Button,Grid} from '@material-ui/core';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme)=>{
     return {
@@ -48,31 +48,20 @@ const useStyles = makeStyles((theme)=>{
     }
 })
 
-function Login() {
+function Login(props) {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-
+    
+    
+    
     const handleLogIn = (e)=>{
         e.preventDefault()
-        auth.signInWithEmailAndPassword(email,password)
-        .then((authUser)=>{
-            if(authUser) {
-                dispatch(login({
-                    id: authUser.user.uid,
-                    email: authUser.user.email,
-                    username: authUser.user.displayName
-                }))
-                history.push('/')
-            } else {
-                throw new Error('Wrong username or password');
-            }
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        dispatch(LogIn(email,password))
+        history.push('/')
+       
     }
     return (
         <div className={classes.loginMain}>
@@ -138,5 +127,8 @@ function Login() {
         </div>
     )
 }
+    
+
+    
 
 export default Login

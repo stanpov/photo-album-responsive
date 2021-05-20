@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme)=>{
             borderRadius: "80px 0px 80px 0px"
         },
         loginAvatar: {
-            marginTop: theme.spacing(1),
             marginBottom: theme.spacing(1),
             backgroundColor: theme.palette.secondary.light
         },

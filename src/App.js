@@ -6,10 +6,12 @@ import Layout from './components/Layout/Layout';
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import ForgotPassword from './components/ForgotPassword/ForgotPassword'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import AllPhotos from './components/AllPhotos/AllPhotos'
 
 function App() {
   return (
+    
     <Router>
     <div className="App">
       <Layout>
@@ -18,6 +20,7 @@ function App() {
         <Route path='/login' exact component={Login} />
         <Route path='/register' exact component={Register} />
         <Route path='/forgotpass' exact component={ForgotPassword} />
+        <Route path='/photos' exact component={AllPhotos} />
       </Switch>
       </Layout>
       <Footer />

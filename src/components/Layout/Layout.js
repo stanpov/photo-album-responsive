@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
 import {Link,useHistory} from 'react-router-dom';
-import {auth} from '../../firebase/firebase';
 import {useDispatch,useSelector} from 'react-redux';
-import {logout,selectUser} from '../../features/auth/userSlice'
+import {LogOut} from '../../features/actions'
 import { makeStyles,Toolbar,AppBar,Typography,IconButton,Menu,MenuItem } from '@material-ui/core';
-import {HomeOutlined,AccountCircle} from '@material-ui/icons'
+import {HomeOutlined,AccountCircle,Delete,Close} from '@material-ui/icons'
+
 
 const useStyles = makeStyles({
     page: {
@@ -44,17 +44,22 @@ const useStyles = makeStyles({
         bottom: 0,
         height: "40px",
         marginTop: "20px"
+    },
+    middleOptionNav: {
+        display: 'flex',
+        flexDirection: 'row'
     }
 })
 
 
 function Layout({children}) {
+    const user = useSelector(state=>state.user.logged)
     const [anchorEl,setAnchorEl] = useState(null);
     const classes = useStyles();
     let open = Boolean(anchorEl);
     const dispatch = useDispatch();
     const history = useHistory();
-    const user = useSelector(selectUser)
+    
     
 
     const handleMenu = (e)=>{
@@ -67,14 +72,11 @@ function Layout({children}) {
         setAnchorEl(null)
     }
     const handleLogOut = (e)=>{
-        auth.signOut().then(()=>{
-            dispatch(logout())
-            setAnchorEl(null);
-            history.push('/')
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        e.preventDefault()
+        dispatch(LogOut())
+        setAnchorEl(null);
+        history.push('/')
+       
     }
     
     return (
@@ -89,7 +91,9 @@ function Layout({children}) {
                  <HomeOutlined />
                 </IconButton> </Link>
                 <Typography variant="h6" component="h2" color="secondary">
-                    <div ><img className={classes.logoImage} src="camera.png" alt="logo" /></div>
+                    <div className={classes.middleOptionNav}>
+                        <img className={classes.logoImage} src="camera.png" alt="logo" />
+                        </div> 
                 </Typography>
                 <IconButton aria-controls="menu-appbar" onClick={handleMenu} color="primary">
                     <AccountCircle />
@@ -110,10 +114,10 @@ function Layout({children}) {
                      open={open}
                      onClose={handleClose}
                      >
-                         {user ? (<> <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to="/photos">View Photos</Link></MenuItem>
-                        <MenuItem onClick={handleLogOut}><Link className={classes.headerLinks} to="/">Logout</Link></MenuItem> </>)
-                         : (<> <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to="/login">Login</Link></MenuItem>
-                         <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to='/register'>Register</Link></MenuItem> </>) }
+                         {user ? (<div> <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to="/photos">View Photos</Link></MenuItem>
+                        <MenuItem onClick={handleLogOut}><Link className={classes.headerLinks} to="/">Logout</Link></MenuItem> </div>)
+                         : (<div> <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to="/login">Login</Link></MenuItem>
+                         <MenuItem onClick={handleClose}><Link className={classes.headerLinks} to='/register'>Register</Link></MenuItem> </div>) }
                         
                         
 
@@ -123,10 +127,12 @@ function Layout({children}) {
         </AppBar>
         
         <div className={classes.page}>
+            
             {children}
         </div>
         </div>
     )
 }
+    
 
 export default Layout
