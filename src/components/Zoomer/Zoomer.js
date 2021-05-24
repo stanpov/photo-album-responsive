@@ -1,5 +1,8 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core';
+import {UnmarkOne} from '../../features/actions';
+import {useDispatch} from 'react-redux';
+
 
 const useStyles = makeStyles((theme)=>{
 
@@ -27,18 +30,21 @@ const useStyles = makeStyles((theme)=>{
 })
 
 function Zoomer({selectedImg,setSelectedImg}) {
+    const dispatch = useDispatch()
     const classes = useStyles()
+  
 
     const handleCloseClick = (e) =>{
-       console.log(e.target.className)
         if(e.target.className.includes('backdrop')) {
             setSelectedImg(null)
+            dispatch(UnmarkOne())
         }
         
     }
+
     return (
         <div className={classes.backdrop} onClick={handleCloseClick}>
-            <img className={classes.zoomImg} src={selectedImg} alt="large pic" />  
+            <img className={classes.zoomImg} src={selectedImg.url} alt="large pic" />  
         </div>
     )
 }

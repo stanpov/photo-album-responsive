@@ -60,7 +60,6 @@ function Layout({children}) {
     const dispatch = useDispatch();
     const history = useHistory();
     
-    
 
     const handleMenu = (e)=>{
         
@@ -129,6 +128,7 @@ function Layout({children}) {
         <div className={classes.page}>
             
             {children}
+           
         </div>
         </div>
     )

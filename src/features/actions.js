@@ -1,4 +1,4 @@
-import {auth} from '../firebase/firebase'
+import {auth,db} from '../firebase/firebase'
 
 export const LogIn = (email,password) =>{
     return (dispatch)=>{
@@ -26,6 +26,48 @@ export const LogOut = () => {
             console.log(err.message)
         })
     }
+}
+
+export const DeleteOne = (id)=>{
+    
+    return (dispatch)=>{
+        db.collection('images').doc(id).delete()  
+        .then((response)=>{
+            dispatch({
+                type: "DELETE_ONE",
+                payload: response
+            })
+        }).catch(err=>{
+            console.log(err.message)
+        })
+        
+    }
+}
+
+export const MarkOne = (id)=>{
+    let item = [];
+    return(dispatch)=>{
+        db.collection('images').doc(id).get()
+        .then((response)=>{
+            item.push({...response.data(),id:response.id})
+            dispatch({
+                type: "MARK_ONE",
+                payload: item
+            })
+        }).catch(err=>{
+            console.log(err.message)
+        })
+    }
+   
+}
+
+export const UnmarkOne = ()=>{
+        return(dispatch)=>{
+            dispatch({
+                type: "UNMARK_ONE",
+                payload: null
+            })
+        }
 }
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import Home from './components/Home/Home'
@@ -10,6 +10,7 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AllPhotos from './components/AllPhotos/AllPhotos'
 
 function App() {
+  
   return (
     
     <Router>
