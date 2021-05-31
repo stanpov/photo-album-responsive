@@ -1,7 +1,7 @@
 import React from 'react'
 import {Redirect,Route} from 'react-router-dom'
 
-function isAuth({isAuth,component: Component,...rest}) {
+function ProtectedRoute({isAuth,component: Component,...rest}) {
     return (
         <>
             <Route 
@@ -20,4 +20,4 @@ function isAuth({isAuth,component: Component,...rest}) {
     )
 }
 
-export default isAuth
+export default ProtectedRoute
