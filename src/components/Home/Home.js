@@ -1,6 +1,5 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core';
-import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
 
@@ -20,8 +19,7 @@ const useStyles = makeStyles({
 })
 
 function Home() {
-    const user = useSelector(state=>state.user.logged)
-    console.log(user)
+    
     const classes = useStyles()
     return (
         <div className={classes.homePage} >

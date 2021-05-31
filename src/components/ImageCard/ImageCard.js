@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme)=>{
            objectFit: "contain",
            paddingTop: "80%",
            paddingBottom: "20%",
+           
        },
+       cardProd: {
+           width: '100px',
+           height: "100px",
+       }
     }
 })
 
@@ -20,7 +25,7 @@ const useStyles = makeStyles((theme)=>{
 function ImageCard({item}) {
     const classes = useStyles()
     return (
-        <Card>
+        <Card className={classes.cardProd}>
             
             <CardMedia 
                 className={classes.cardImage}
